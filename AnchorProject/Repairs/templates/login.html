@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div id="boat-text" style="display: flex;  width: 70%; margin: 50px auto 0 auto; justify-content: center; align-items: center;">
+  <form method = 'POST' action = "{% url 'login'%}">
+
+    {% csrf_token %}
+    <div class="mb-3">
+      <h2> Log In</h2>
+      <label for="exampleInputEmail1" class="form-label" >User Name</label>
+      <input type="text" class="form-control" name = "user_name_login" required>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label" >Password</label>
+      <input type="password" class="form-control" name = "password_login" required >
+    </div>
+
+    <button type="submit" class="btn btn-primary">Log In</button>
+  </form>
+
+
+</div>
+{% endblock %}

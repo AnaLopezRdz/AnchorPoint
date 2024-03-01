@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div id="boat-text" style="display: flex;  width: 70%; margin: 50px auto 0 auto; justify-content: center; align-items: center;">
+  <form method = 'POST' action = "{% url 'login'%}">
+    {% csrf_token %}
+    <div class="mb-3">
+      <h2> Looking for help?</h2>
+      <p>Describe your problem and we'll look for the most sutable mechanic</p>
+    </div>
+    <div class="mb-3">
+      <label for="comment" class="form-label" >What's the problem?</label>
+      <input type="text" class="form-control" id = "comment" name = "comment" required >
+    </div>
+    <div class="mb-3">
+      <label for="photo_post" class="form-label" >Show a picture of the problem:</label>
+      <input type="file" class="form-control" id = "photo_poast" name = "photo_post" accept="image/*" required >
+    </div>
+    <!-- two hidden field to send the latitude, longitude -->
+    <div class="d-none">
+      <label for="lat" class="form-label" ></label>
+      <input type="text" class="form-control" id = "lat" name = "latitude" required >
+    </div>
+    <div class="d-none">
+      <label for="long" class="form-label" ></label>
+      <input type="text" class="form-control" id = "long" name = "longitude" required >
+    </div>
+    <button class="mb-3 btn btn-primary"onclick="getLocation()">Add your location</button>
+
+    <!-- take the map from script with the id map -->
+    <div class="mb-3" id ="map" style = "width:800px; height:600px;"></div>
+    <button type="submit" class="btn btn-primary">Post</button>
+  </form>
+
+
+  <!-- location -->
+<script>
+  const x = document.getElementById("demo");
+
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+  }
+
+  function showPosition(position) {
+    document.getElementById("lat").value = position.coords.latitude;
+    document.getElementById("long").value = position.coords.longitude;
+    // calling the position for pin
+    positionReceived(position);
+  }
+  </script>
+
+
+<!-- map -->
+  <script>
+    // Creating map options
+
+    var mapOptions = {
+    center: [17.385044, 78.486671],
+    zoom: 10
+    }
+
+
+    // Creating a map object
+    var map = new L.map('map', mapOptions);
+
+
+    // Creating a Layer object
+    var layer = new
+    L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+
+    // Adding layer to the map
+    map.addLayer(layer);
+
+    function positionReceived(position) {
+      var lat = position.coords.latitude;
+      var lon = position.coords.longitude;
+      // number 13 is zoom bydefault
+      map.setView([lat, lon], 50);
+      // pin the location on the map
+      L.marker([lat, lon]).addTo(map);
+    }
+    </script>
+
+</div>
+{% endblock %}
