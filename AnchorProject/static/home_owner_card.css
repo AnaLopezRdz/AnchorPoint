@@ -1,0 +1,10 @@
+.flex-container {
+  display: flex;
+  flex-wrap: wrap; /* Cards will wrap to new rows */
+  gap: 10px; /* Gap between cards */
+}
+
+.card {
+  flex: 0 1 calc(29.33% - 10px); /* Three cards per row */
+  /* Styles for your cards */
+}

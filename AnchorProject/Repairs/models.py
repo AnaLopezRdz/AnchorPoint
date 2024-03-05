@@ -12,7 +12,7 @@ class UserProfile(models.Model):
 
     def __str__(self):
 
-      return f'{self.user_django_profile.first_name} , {self.user_django_profile.last_name}\n{str(self.phone)}'
+      return f'{self.user_django_profile.first_name} {self.user_django_profile.last_name}\n{str(self.phone)}'
 
 class MechanicProfile(models.Model):
     phone = PhoneNumberField(blank=True)
@@ -23,7 +23,7 @@ class MechanicProfile(models.Model):
 
     def __str__(self):
 
-      return f'{self.mec_django_profile.first_name} , {self.mec_django_profile.last_name}\n, {self.skills},{str(self.phone)}, {self.latitud}, {self.longitud} '
+      return f'{self.mec_django_profile.first_name} {self.mec_django_profile.last_name}\n, {self.skills},{str(self.phone)}, {self.latitud}, {self.longitud} '
 
 class Post(models.Model):
    status_choices = (

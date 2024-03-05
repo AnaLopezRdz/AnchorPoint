@@ -1,3 +1,6 @@
+@import "calendar.css";
+@import "home_owner_card.css";
+
 .parent-div-nav-bar{
   display: flex;
 }

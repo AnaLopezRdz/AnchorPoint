@@ -9,6 +9,9 @@ International Telephone Input Css
     right: auto;
     left: 0; */
 
+.flag-container {
+  padding-top: 14px;
+}
 
 
 .flag-container:hover {

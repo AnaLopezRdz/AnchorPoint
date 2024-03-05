@@ -1,6 +1,19 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+    <div class="flex-container">
+      {% for post in posts %}
+      <div  class="card" style="width: 9rem; display: inline-block; margin: 20px;">
+        <a href="{% url 'postdetail' post.id %}">
+          <img src="{{post.photo.url}}"  class="card-img-top" style="width: 100%; height:250px; object-fit: cover;"alt="...">
+        </a>
+        <div class="card-body">
+          <h5 class="card-title">{{post.comment}}</h5>
+          <p class="card-text">Posted by: {{post.user_post}}</p>
+          <p>Status: Posted by: {{post.get_status_display}}</p>
+        </div>
+    </div>
 
-
+{% endfor%}
 {% endblock %}
+<!-- href="{% url 'userposteach' post.id %}" to paste in the picture -->
