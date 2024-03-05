@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 <div id="boat-text" style="display: flex;  width: 70%; margin: 50px auto 0 auto; justify-content: center; align-items: center;">
-  <form method = 'POST' action = "{% url 'login'%}">
+  <form method = 'POST' enctype ="multipart/form-data" action = "{% url 'userpost'%}">
     {% csrf_token %}
     <div class="mb-3">
       <h2> Looking for help?</h2>
@@ -14,7 +14,7 @@
     </div>
     <div class="mb-3">
       <label for="photo_post" class="form-label" >Show a picture of the problem:</label>
-      <input type="file" class="form-control" id = "photo_poast" name = "photo_post" accept="image/*" required >
+      <input type="file" class="form-control" id = "photo_post" name = "photo_post" accept="image/*" required >
     </div>
     <!-- two hidden field to send the latitude, longitude -->
     <div class="d-none">
@@ -25,6 +25,12 @@
       <label for="long" class="form-label" ></label>
       <input type="text" class="form-control" id = "long" name = "longitude" required >
     </div>
+    <div class="mb-3">
+      <label for="birthdaytime">Select date and time:</label>
+      <input type="datetime-local" id="birthdaytime" name="repairtime">
+
+    </div>
+
     <button class="mb-3 btn btn-primary"onclick="getLocation()">Add your location</button>
 
     <!-- take the map from script with the id map -->

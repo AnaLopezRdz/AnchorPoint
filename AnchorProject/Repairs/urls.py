@@ -10,5 +10,8 @@ urlpatterns = [
     path('mecanic/', views.view_mec, name= 'mecanic'),
     path('userowner/', views.view_owner, name= 'owner'),
     path('userpost/', views.post, name= 'userpost'),
+    path('postdetail/<int:id>/', views.post_detail, name= 'postdetail'),
+
+
 
 ]
