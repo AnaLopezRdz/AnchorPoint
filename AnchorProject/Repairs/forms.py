@@ -17,6 +17,8 @@ class UserRegisterForm(Form):
             (2, 'Mechanic')
     )
     username = forms.CharField(max_length=100, label="Write your name:")
+    first_name = forms.CharField(max_length=100, label="Write your first name:")
+    last_name = forms.CharField(max_length=100, label="Write your last name:")
     password = forms.CharField(max_length=100, label="Choose a password:", widget=forms.PasswordInput)
     phone = PhoneNumberField(widget=TelInput())
     type_of_user = forms.ChoiceField(choices=type_user, label="How do you want to sign in?")
@@ -28,6 +30,14 @@ class UserRegisterForm(Form):
         self.fields['username'].widget.attrs['class'] = 'form-control'
         self.fields['username'].widget.attrs['placeholder'] = 'username'
         self.fields['username'].help_text = "<span class='form-text text-muted'></span>"
+
+        self.fields['fist_name'].widget.attrs['class'] = 'form-control'
+        self.fields['fist_name'].widget.attrs['placeholder'] = 'fist_name'
+        self.fields['fist_name'].help_text = "<span class='form-text text-muted'></span>"
+
+        self.fields['last_name'].widget.attrs['class'] = 'form-control'
+        self.fields['last_name'].widget.attrs['placeholder'] = 'last_name'
+        self.fields['last_name'].help_text = "<span class='form-text text-muted'></span>"
 
         self.fields['password'].widget.attrs['class'] = 'form-control'
         self.fields['password'].widget.attrs['placeholder'] = 'password'

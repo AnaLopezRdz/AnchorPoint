@@ -4,5 +4,6 @@
   <div class="container mt-3">
     <div id="calendar"></div>
   </div>
-  <script src="{% static 'calendar.js' %}"></script>
+  <!-- defer  dataname to turn the var into json again to use in js -->
+  <script src="{% static 'calendar.js' %}" defer data-postcomesfromviews = '{{ posts }}'></script>
 {% endblock %}

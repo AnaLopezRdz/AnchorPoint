@@ -1,3 +1,4 @@
+
 !function() {
 
   var today = moment();
@@ -55,7 +56,10 @@
     var self = this;
 
     this.events.forEach(function(ev) {
-     ev.date = self.current.clone().date(Math.random() * (29 - 1) + 1);
+      // getting a random date for the event as it came from library
+    //  ev.date = self.current.clone().date(Math.random() * (29 - 1) + 1);
+    // change the date to the date from the post
+      ev.date = moment(ev.date);
     });
 
 
@@ -319,28 +323,39 @@
   }
 }();
 
+
+
 !function() {
-  var data = [
-    { eventName: 'Lunch Meeting w/ Mark', calendar: 'Work', color: 'orange' },
-    { eventName: 'Interview - Jr. Web Developer', calendar: 'Work', color: 'orange' },
-    { eventName: 'Demo New App to the Board', calendar: 'Work', color: 'orange' },
-    { eventName: 'Dinner w/ Marketing', calendar: 'Work', color: 'orange' },
+  const data = document.currentScript.dataset;
+  const postcomesfromviews = data.postcomesfromviews;
+  // console.log(postcomesfromviews);
+  const jsonafterparse = JSON.parse(postcomesfromviews);
 
-    { eventName: 'Game vs Portalnd', calendar: 'Sports', color: 'blue' },
-    { eventName: 'Game vs Houston', calendar: 'Sports', color: 'blue' },
-    { eventName: 'Game vs Denver', calendar: 'Sports', color: 'blue' },
-    { eventName: 'Game vs San Degio', calendar: 'Sports', color: 'blue' },
+  console.log(jsonafterparse);
 
-    { eventName: 'School Play', calendar: 'Kids', color: 'yellow' },
-    { eventName: 'Parent/Teacher Conference', calendar: 'Kids', color: 'yellow' },
-    { eventName: 'Pick up from Soccer Practice', calendar: 'Kids', color: 'yellow' },
-    { eventName: 'Ice Cream Night', calendar: 'Kids', color: 'yellow' },
 
-    { eventName: 'Free Tamale Night', calendar: 'Other', color: 'green' },
-    { eventName: 'Bowling Team', calendar: 'Other', color: 'green' },
-    { eventName: 'Teach Kids to Code', calendar: 'Other', color: 'green' },
-    { eventName: 'Startup Weekend', calendar: 'Other', color: 'green' }
-  ];
+
+  // var data = [
+  //   { eventName: 'Lunch Meeting w/ Mark', calendar: 'Work', color: 'orange', date: "2024-03-14T06:30.000Z" },
+    // { eventName: 'Interview - Jr. Web Developer', calendar: 'Work', color: 'orange', date: "" },
+    // { eventName: 'Demo New App to the Board', calendar: 'Work', color: 'orange', date: "" },
+    // { eventName: 'Dinner w/ Marketing', calendar: 'Work', color: 'orange', date: "" },
+
+    // { eventName: 'Game vs Portalnd', calendar: 'Sports', color: 'blue', date: "" },
+    // { eventName: 'Game vs Houston', calendar: 'Sports', color: 'blue', date: "" },
+    // { eventName: 'Game vs Denver', calendar: 'Sports', color: 'blue', date: "" },
+    // { eventName: 'Game vs San Degio', calendar: 'Sports', color: 'blue', date: "" },
+
+    // { eventName: 'School Play', calendar: 'Kids', color: 'yellow', date: "" },
+    // { eventName: 'Parent/Teacher Conference', calendar: 'Kids', color: 'yellow', date: "" },
+    // { eventName: 'Pick up from Soccer Practice', calendar: 'Kids', color: 'yellow', date: "" },
+    // { eventName: 'Ice Cream Night', calendar: 'Kids', color: 'yellow', date: "" },
+
+    // { eventName: 'Free Tamale Night', calendar: 'Other', color: 'green', date: "" },
+    // { eventName: 'Bowling Team', calendar: 'Other', color: 'green', date: "" },
+    // { eventName: 'Teach Kids to Code', calendar: 'Other', color: 'green', date: "" },
+    // { eventName: 'Startup Weekend', calendar: 'Other', color: 'green', date: "" }
+  // ];
 
 
 
@@ -348,6 +363,6 @@
 
   }
 
-  var calendar = new Calendar('#calendar', data);
+  var calendar = new Calendar('#calendar', jsonafterparse.posts);
 
 }();

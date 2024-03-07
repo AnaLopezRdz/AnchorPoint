@@ -5,6 +5,8 @@ from .forms import UserRegisterForm
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from .models import UserProfile, MechanicProfile, Post
+from django.http import JsonResponse
+import json
 
 # Create your views here.
 def home(request):
@@ -32,8 +34,21 @@ def profile_from_user(user):
     return (None, None)
 
 def view_mec(request):
+    if request.user.is_authenticated:
+        profile, number = profile_from_user(request.user)
+        if number == 2:
+            posts = Post.objects.filter(mecanic_post=profile)
+                # Serialize each post to JSON
+                # wth the curve brackets i make it a dictionary intead of a list
+            posts_json = {"posts" : [post.to_json() for post in posts]}
+            # convert a python dict to a string
+            dictionaty_to_jason = json.dumps(posts_json)
+            return render(request, 'home_mec.html', {"type_of_user": 2, "posts": dictionaty_to_jason})
 
-    return render(request, 'home_mec.html', {"type_of_user": 2})
+        elif number == 1:
+            messages.success(request, "There has been a problem!")
+            return redirect("owner")
+
 
 def view_owner(request):
     if request.user.is_authenticated:
@@ -55,8 +70,11 @@ def register_user(request):
             password = request.POST['password']
             phone = request.POST['phone']
             type_of_user = request.POST['type_of_user']
+            first_name = request.POST['first_name']
+            last_name = request.POST['last_name']
+
             # Create user
-            user = User.objects.create_user(username=user, password=make_password(password))
+            user = User.objects.create_user(username=user, password=make_password(password), first_name=first_name, last_name=last_name)
             user.set_password(password)
             user.save()
             # Create profile
