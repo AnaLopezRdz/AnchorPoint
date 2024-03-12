@@ -234,20 +234,36 @@
     arrow.style.left = el.offsetLeft - el.parentNode.offsetLeft + 27 + 'px';
   }
 
+
+
   Calendar.prototype.renderEvents = function(events, ele) {
     //Remove any events in the current details element
     var currentWrapper = ele.querySelector('.events');
     var wrapper = createElement('div', 'events in' + (currentWrapper ? ' new' : ''));
 
+
     events.forEach(function(ev) {
       var div = createElement('div', 'event');
+      div.id = ev.id;
       var square = createElement('div', 'event-category ' + ev.color);
       var span = createElement('span', '', ev.eventName);
+      var spandate = createElement('span', '', moment(ev.date).format('MM-DD-YYYY HH:mm'));
+
+        div.addEventListener('click', () => {
+          showAditionalInforForPost(ev.id);
+        });
+
 
       div.appendChild(square);
       div.appendChild(span);
+      div.appendChild(spandate);
       wrapper.appendChild(div);
     });
+
+
+
+
+
 
     if(!events.length) {
       var div = createElement('div', 'event empty');
@@ -279,6 +295,8 @@
       ele.appendChild(wrapper);
     }
   }
+
+
 
   Calendar.prototype.drawLegend = function() {
     var legend = createElement('div', 'legend');
@@ -324,15 +342,33 @@
 }();
 
 
+const data = document.currentScript.dataset;
+const postcomesfromviews = data.postcomesfromviews;
+// console.log(postcomesfromviews);
+const jsonafterparse = JSON.parse(postcomesfromviews);
 
+  // new function to display the extra div with details of the event
+  function showAditionalInforForPost (idEvent) {
+    // Get the event by Json
+    console.log(idEvent);
+    const post = jsonafterparse.posts.find(ev => ev.id === idEvent);
+    console.log(post);
+
+    // Show aditional infor in thediv `info-adicional`
+    const infoAdicionalDiv = document.getElementById('info-adicional');
+    console.log(infoAdicionalDiv);
+    infoAdicionalDiv.innerHTML = `
+      <h2>${post.user_post.user_django_profile.first_name}</h2>
+      <p>${post.date}</p>
+      <p>${post.comment}</p>
+      <p>${post.status}</p>
+      <img src="${post.photo}" style="width: 200px; height: 150px;" />
+    `;
+
+    console.log("hola");
+
+  }
 !function() {
-  const data = document.currentScript.dataset;
-  const postcomesfromviews = data.postcomesfromviews;
-  // console.log(postcomesfromviews);
-  const jsonafterparse = JSON.parse(postcomesfromviews);
-
-  console.log(jsonafterparse);
-
 
 
   // var data = [

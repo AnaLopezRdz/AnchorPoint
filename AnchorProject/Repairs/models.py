@@ -68,7 +68,7 @@ class Post(models.Model):
 #    json models
     def to_json(self):
         if self.status == 0:
-            color = "red"
+            color = "orange"
         elif self.status == 1:
             color = "green"
         elif self.status == 2:
@@ -87,6 +87,7 @@ class Post(models.Model):
             "eventName": self.user_post.user_django_profile.first_name,
             "color": color,
             "calendar": "Boat Repairs",
+            "id": self.id,
         }
 
 

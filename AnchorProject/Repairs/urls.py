@@ -11,5 +11,6 @@ urlpatterns = [
     path('userowner/', views.view_owner, name= 'owner'),
     path('userpost/', views.post, name= 'userpost'),
     path('postdetail/<int:id>/', views.post_detail, name= 'postdetail'),
-
+    path('open-reques-post/', views.mec_see_open_request_posts, name= 'open-reques-post'),
+    path('accept-post/<int:id>/', views.mec_accept_post, name= 'accept-post'),
 ]

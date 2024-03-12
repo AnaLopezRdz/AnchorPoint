@@ -164,3 +164,26 @@ def post_detail(request, id):
             postdetail = Post.objects.get(id=id)  # Corrected line
             return render(request, 'each_post.html', {'post': postdetail, "type_of_user": number})
     return redirect('home')
+
+def mec_see_open_request_posts(request):
+    if request.user.is_authenticated:
+        profile, number = profile_from_user(request.user)
+        if number == 2:
+            posts = Post.objects.filter(status = 0).order_by('-date')
+            return render(request, 'open_request_mec.html', {"type_of_user": 2, "posts": posts})
+        elif number == 1:
+            return redirect("owner")
+    return redirect("home")
+
+def mec_accept_post(request, id):
+    if request.user.is_authenticated:
+        profile, number = profile_from_user(request.user)
+        if number == 2:
+            post = Post.objects.get(id=id)
+            post.mecanic_post = profile
+            post.status = 1
+            post.save()
+            return redirect("mecanic")
+        elif number == 1:
+            return redirect("owner")
+    return redirect("home")
