@@ -10,12 +10,11 @@
         <div class="card-body">
           <h5 class="card-title">{{post.comment}}</h5>
           <p class="card-text">Posted by: {{post.user_post}}</p>
+          <p class="card-text">Date: {{post.date}}</p>
           <!-- get_status_disply comes from djnago to display infor from the numbers of status-->
-          <p>Status: {{post.get_status_display}}</p>
-          <button>aceptar</button>
+          <a href = " {% url 'accept-post' post.id %}"  class="btn btn-primary">aceptar</a>
         </div>
     </div>
 
 {% endfor%}
 {% endblock %}
-<!-- href="{% url 'userposteach' post.id %}" to paste in the picture -->
